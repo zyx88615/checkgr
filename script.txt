@@ -1,0 +1,20 @@
+import os
+
+folder_path = "/path/to/folder"
+search_words = ["word1", "word2", "word3"]
+skip_pattern = "united"
+
+for root, dirs, files in os.walk(folder_path):
+    for file in files:
+        if not file.startswith(skip_pattern):
+            file_path = os.path.join(root, file)
+            with open(file_path, "r") as f:
+                for line in f:
+                    for search_word in search_words:
+                        found = False
+                        if search_word in line:
+                            print(file_path + ": " + search_word + " found")
+                            found = True
+                            break
+                    if found:
+                        break
